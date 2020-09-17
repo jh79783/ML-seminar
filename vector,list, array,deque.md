@@ -38,7 +38,7 @@ ex) vector<int> v;
 
 - vector v(n);
 
-  크기가 n인 vector v를 생성합니다.
+  크기가 n인 vector v를 생성합니다. (모든 벡터요소 0으로 초기화)
 
 - vector v(n, x);
 
@@ -50,9 +50,17 @@ ex) vector<int> v;
 
 또한 vector는 '==', '!=', '<', '>', '<=', '>=' 연산자를 사용하여 대소 비교가 가능합니다.
 
+>vector <int\>v[] = {{1, 2}, {3, 4}}
+>
+>- 벡터 배열 생성 (행은 가변 열은 고정)
+>
+>vector<vector<int\>> v
+>
+>- 2차원 벡터 생성(행과 열 모두 가변)
+
 ## vector의 멤버함수
 
-vector<int> v;로 가정합니다.
+vector<int\> v;로 가정합니다.
 
 - v.assign(n, x);
 
@@ -157,6 +165,122 @@ vector<int> v;로 가정합니다.
 
   capacity하고 상관이 없습니다.
 
+- v.erase(idx) or v.erase(star_idx, end_idx)
+  원하는 index값의 요소를 지웁니다.
+
+- v.emplace(idx, x)
+  원하는 위치에 요소를 삽입합니다.
+
+- v.emplace_back(x)
+  벡터의 마지막 부분에 새로운 요소를 추가합니다.
+
+## push_back VS emplace_back
+
+함수 원형
+
+- push_back
+
+  - void push_back( const T& value );
+
+    - 값 복사를 통한 요소 추가
+
+  - void push_back( T&& value );    //C++11
+
+    > R-Value 개념
+
+    - (임시)객체의 복사가 아닌 이동을 통한 요소 추가 
+
+  > 즉 push_back같은 삽입 함수는 삽입할 객체를 받음
+
+- emplace_back
+
+  - void emplace_back( Args&&... args );
+    - 삽입할 객체의 생성자를 위한 인자를 받아 삽입
+
+  > 즉 emplace_back같은 생성 삽입 함수는 삽입할 객체의 생성자들을 위한 인자들을 받아 **vector 내에서 직접** 객체를 생성하여 삽입한다. 따라서 임시 객체의 **생성과 파괴, 복사(또는 move)**를 하지 않아도 됨
+
+push_back은 삽입하기위해 객체를 만들어 전달하고 내부적으로 다시 임시 객체를 만듭니다.
+하지만 emplace_back은 생성에 필요한 인자를 내부에서 생성 삽입합니다.
+
+```cpp
+#include<iostream>
+#include<string>
+#include<vector>
+
+class PEB{
+
+protected:
+    int Index;
+    std::string strName;
+    int n;
+
+public:
+    PEB(const int Index, const std::string& strName, const int n)
+        : Index(Index)
+        , strName(strName)
+        , n(n)
+    {
+        std::cout<<strName<<" 생성자 호출"<<std::endl;
+    }
+
+    PEB(PEB&I)
+        : Index(I.Index)
+        , strName(move(I.strName))
+        , n(I.n)
+    {
+        std::cout<<strName<<"복사 생성자 호출"<<std::endl;
+    }
+
+    PEB(PEB&&I)
+        : Index(I.Index)
+        , strName(move(I.strName))
+        , n(I.n)
+    {
+        std::cout<<strName<<"이동 생성자 호출"<<std::endl;
+    }
+
+    ~PEB(){
+        std::cout<<strName<<" 소멸자 호출"<<std::endl;
+    }
+
+};
+
+int main(){
+    std::vector<PEB> Push_Emplace;
+
+    Push_Emplace.emplace_back(0,"emplace_back", 10);
+//    Push_Emplace.push_back(PEB(5, "push_back", 5));
+
+    return 0;
+}
+
+//결과
+emplace_back 생성자 호출
+emplace_back 소멸자 호출
+
+push_back 생성자 호출			// 객체 생성
+push_back이동 생성자 호출		   // 내부적으로 임시 객체 생성
+ 소멸자 호출						
+push_back 소멸자 호출
+```
+
+
+
+## R-Value
+
+C++ 에서의 Lvalue와 Rvalue은 L과 R은 Left, Right를 의미하지 않습니다.
+Lvalue : 표현식이 종료된 이후에도 없어지지 않고 지속되는 개체 (예: 모든 변수)
+Rvalue : 표현식이 종료되면 더이상 존재하지 않는 임시적인 개체 (예: 상수, 임시 객체)
+Rvalue와 Lvalue를 확인하는 방법은 &를 붙여 에러가 난다면 Rvalue라고 할 수 있습니다.
+하지만 이 &는 Lvalue참조자 이기때문에 C++11에서는 Rvalue Reference가 추가되었습니다.
+
+> Lvalue Reference = &
+> Rvalue Reference = &&
+
+하지만 Rvalue는 Rvalue Reference와 같은 것은 아닙니다.
+
+
+
 ## 예제
 
 ```cpp
@@ -198,32 +322,52 @@ int main(){
     std::cout<<"name.front():"<<name.front()<<std::endl;
     std::cout<<"name.back():"<<name.back()<<std::endl;
 
-    std::vector<std::string>::iterator iter1;
+   /*std::vector<std::string>::iterator iter1;
     for(iter1=name.begin();iter1!=name.end();iter1++){
         std::cout<<*iter1<<"/";
     }
-    std::cout<<std::endl;
+    
     name.pop_back();
+    
     for(iter1=name.begin();iter1!=name.end();iter1++){
          std::cout<<*iter1<<"/";
     }
-    std::cout<<std::endl;
+    
     for(iter1=name.begin();iter1!=name.end();iter1++){
          if(*iter1=="아크"){
              name.erase(iter1);
              break;
          }
     }
-
+    
      for(iter1=name.begin();iter1!=name.end();iter1++){
          std::cout<<*iter1<<"/";
+    }*/
+
+    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+        std::cout<<*iter1<<"/";
+    std::cout<<std::endl;
+
+    name.pop_back();
+
+    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+        std::cout<<*iter1<<"/";
+
+    std::cout<<std::endl;
+
+    for(auto iter1=name.begin(); iter1!=name.end(); iter1++){
+        if(*iter1=="아크"){
+            name.erase(iter1);
+            break;
+        }
     }
+
+    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+        std::cout<<*iter1<<"/";
     std::cout<<std::endl;
     std::cout<<name.empty()<<" "<<name.size()<<" "<<name.capacity()<<std::endl;
     name.clear();
     std::cout<<name.empty()<<" "<<name.size()<<" "<<name.capacity()<<std::endl;
-
-
 
     return 0;
 }
@@ -251,6 +395,42 @@ name.back():아델
 썬콜/히어로/
 0 2 4
 1 0 4
+```
+
+
+
+## auto
+
+C++11 이전에는 auto는 자동 저장소 클래스에 있는 변수, 지역변수를 선언하는 역할을 했었습니다.
+
+> 저장소 클래스 : typedef, static ...등 정보를 어떤 저장소에 보관할지 지정해주는 예약어
+
+하지만 C++11부터는 auto는 선언의 초기화식에서 형식이 추론되는 변수를 선언하는 역할을 하고 있습니다.
+
+```cpp
+// ex1)
+#include<iostream>
+
+int main(){
+    // initializer_list<int>
+    auto A = {1, 2};
+    // initializer_list<int>
+    auto B = {3};
+    // int
+    auto C = 5;
+    // double
+    auto D = 5.4;
+    std::cout<<"자료형:"<<typeid(A).name()<<std::endl;
+    std::cout<<"자료형:"<<typeid(B).name()<<std::endl;
+    std::cout<<"자료형:"<<typeid(C).name()<<std::endl;
+    std::cout<<"자료형:"<<typeid(D).name()<<std::endl;
+}
+
+//결과
+자료형:St16initializer_listIiE
+자료형:St16initializer_listIiE
+자료형:i
+자료형:d
 ```
 
 
@@ -298,7 +478,7 @@ vector와 마찬가지로 연산자를 사용하여 대소비교가 가능합니
 
 ## deque의 멤버함수
 
-deque<int> dq 로 가정합니다.
+deque<int\> dq 로 가정합니다.
 
 - dq.push_front(x);
 
@@ -543,7 +723,7 @@ list도 마찬가지로 크기비교 연산자를 사용할 수 있습니다.
 
 ## list의 멤버함수
 
-list<int> lt 로 가정합니다.
+list<int\> lt 로 가정합니다.
 
 - 앞서 설명한 vector와 비슷한 사용법
 
