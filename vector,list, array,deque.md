@@ -36,17 +36,100 @@ ex) vector<int> v;
 
   비어있는 vector v를 생성합니다.
 
+  ```cpp
+  std::vector<int> v;
+  ```
+
+  
+
 - vector v(n);
 
   크기가 n인 vector v를 생성합니다. (모든 벡터요소 0으로 초기화)
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"크기 n개 생성"<<std::endl;
+      std::vector<int> v(10);
+      for(int i=0; i<10; i++){
+         std::cout<<"v:"<<v[i]<<std::endl;
+      }
+  }
+  //결과
+  크기 n개 생성
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  v:0
+  ```
+
+  
 
 - vector v(n, x);
 
   x의 값을 가지고 크기가 n인 vector v를 생성합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"요소 x, 크기 n개 생성"<<std::endl;
+      std::vector<int> v1(5, 9);
+      for(int i=0; i<5; i++){
+         std::cout<<"v1:"<<v1[i]<<std::endl;
+      }
+  }
+  //결과
+  요소 x, 크기 n개 생성
+  v1:9
+  v1:9
+  v1:9
+  v1:9
+  v1:9
+  ```
+
+  
+
 - vector v2(v1);
 
   v1 vector를 복사해 v2를 생성합니다.
+  
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"복사"<<std::endl;
+      std::vector<int> v2(v1);
+      for(int i=0; i<5; i++){
+         std::cout<<"v1:"<<v1[i]<<std::endl;
+         std::cout<<"v2:"<<v2[i]<<std::endl;
+      }
+  }
+  //결과
+  복사
+  v1:9
+  v2:9
+  v1:9
+  v2:9
+  v1:9
+  v2:9
+  v1:9
+  v2:9
+  v1:9
+  v2:9
+  ```
+  
+  
 
 또한 vector는 '==', '!=', '<', '>', '<=', '>=' 연산자를 사용하여 대소 비교가 가능합니다.
 
@@ -58,6 +141,29 @@ ex) vector<int> v;
 >
 >- 2차원 벡터 생성(행과 열 모두 가변)
 
+```cpp
+#include<iostream>
+#include<vector>
+
+int main(){
+    std::cout<<"백터 배열"<<std::endl;
+    std::vector<int> v3[2] = {{1, 2}, {3, 4}};
+    for(int i=0; i<2; i++){
+        for(int j=0; j<2; j++){
+            std::cout<<"v3:"<<v3[i][j]<<std::endl;
+        }
+    }
+}
+//결과
+백터 배열
+v3:1
+v3:2
+v3:3
+v3:4
+```
+
+
+
 ## vector의 멤버함수
 
 vector<int\> v;로 가정합니다.
@@ -65,6 +171,27 @@ vector<int\> v;로 가정합니다.
 - v.assign(n, x);
 
   x의 값으로 n개의 원소를 할당합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"v.assign(n, x)"<<std::endl;
+      std::vector<int> v_assign;
+      v_assign.assign(3, 3);
+      for(int i=0; i<3; i++){
+         std::cout<<"v_assign:"<<v_assign[i]<<std::endl;
+      }   
+  }
+  //결과
+  v.assign(n, x)
+  v_assign:3
+  v_assign:3
+  v_assign:3
+  ```
+
+  
 
 - v.at(idx);
 
@@ -74,19 +201,87 @@ vector<int\> v;로 가정합니다.
 
   > 범위를 확인합니다.
 
-- v(idx);
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"v.at(idx)"<<std::endl;
+      std::vector<int> v_at(3,3);
+      for(int i=0; i<4; i++){
+         std::cout<<"v_at:"<<v_at.at(i)<<std::endl;
+      }    
+  }
+  //결과
+  v.at(idx)
+  v_at:3
+  v_at:3
+  v_at:3
+  terminate called after throwing an instance of 'std::out_of_range'
+    what():  vector::_M_range_check: __n (which is 3) >= this->size() (which is 3)
+  ```
+
+  
+
+- v[idx];
 
   idx번째 원소를 참조합니다.
 
-  v.at[idx]보다 빠릅니다.
+  v.at(idx)보다 빠릅니다.
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"v.at(idx)"<<std::endl;
+      std::vector<int> v_at(3,3);
+      for(int i=0; i<4; i++){
+         std::cout<<"v_idx:"<<v_at[i]<<std::endl;
+      }   
+  }
+  //결과
+  v_idx:3
+  v_idx:3
+  v_idx:3
+  v_idx:0
+  ```
+
+  
 
 - v.front();
 
   첫번째 원소를 참조합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"v.at(idx)"<<std::endl;
+      std::vector<int> v_at(3,3);
+      std::cout<<"v_front:"<<v_at.front()<<std::endl; 
+  }
+  //결과
+  v_front:3
+  ```
+
 - v.back();
 
   마지막 원소를 참조합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::cout<<"v.at(idx)"<<std::endl;
+      std::vector<int> v_at(3,3);
+      std::cout<<"v_back:"<<v_at.back()<<std::endl; 
+  }
+  //결과
+  v_back:3
+  ```
 
 - v.size();
 
@@ -95,6 +290,30 @@ vector<int\> v;로 가정합니다.
 - v.capacity();
 
   할당된 공간의 크기를 리턴합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::vector<int> v;
+      for(int i=0; i<10; i++){
+              v.push_back(i+1);
+              std::cout<<"v[i]:"<<v[i]<<", "<<"v.size():"<<v.size()<<", "<<"v.capacity():"<<v.capacity()<<std::endl;
+      	}
+  }
+  //결과
+  v[i]:1, v.size():1, v.capacity():1
+  v[i]:2, v.size():2, v.capacity():2
+  v[i]:3, v.size():3, v.capacity():4
+  v[i]:4, v.size():4, v.capacity():4
+  v[i]:5, v.size():5, v.capacity():8
+  v[i]:6, v.size():6, v.capacity():8
+  v[i]:7, v.size():7, v.capacity():8
+  v[i]:8, v.size():8, v.capacity():8
+  v[i]:9, v.size():9, v.capacity():16
+  v[i]:10, v.size():10, v.capacity():16
+  ```
 
 - v.clear();
 
@@ -107,13 +326,70 @@ vector<int\> v;로 가정합니다.
   - size는 실제 유효한 요소의 갯수입니다.
   - capacity는 메모리에 할당되어 요소를 담을 수 있는 공간의 용량입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){
+      std::vector<int> v(10);
+      v.clear();
+      for(int i=0; i<10; i++){
+              std::cout<<"v[i]:"<<v[i]<<", "<<"v.size():"<<v.size()<<", "<<"v.capacity():"<<v.capacity()<<std::endl;
+      	}
+  }
+  //결과
+  v[i]:1, v.size():0, v.capacity():16
+  v[i]:2, v.size():0, v.capacity():16
+  v[i]:3, v.size():0, v.capacity():16
+  v[i]:4, v.size():0, v.capacity():16
+  v[i]:5, v.size():0, v.capacity():16
+  v[i]:6, v.size():0, v.capacity():16
+  v[i]:7, v.size():0, v.capacity():16
+  v[i]:8, v.size():0, v.capacity():16
+  v[i]:9, v.size():0, v.capacity():16
+  v[i]:10, v.size():0, v.capacity():16
+  ```
+
 - v.push_back(x);
 
   마지막 원소 뒤에 x값을 추가합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){    
+  	std::vector<int> v_push;
+      v_push.push_back(5);
+      v_push.push_back(50);
+      v_push.push_back(49);
+      v_push.push_back(90);
+      for(int i=0; i<v_push.size(); i++){
+      std::cout<<"push:"<<v_push[i]<<" ";
+      }
+  }
+  //결과
+  push:5 push:50 push:49 push:90 
+  ```
+
 - v.pop_back();
 
   마지막 원소를 제거합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<vector>
+  
+  int main(){    
+     	v_push.pop_back();
+      for(int i=0; i<v_push.size(); i++){
+      std::cout<<"pop:"<<v_push[i]<<" ";
+      }"push:"<<v_push[i]<<" ";
+      }
+  }
+  //결과
+  pop:5 pop:50 pop:49 
+  ```
 
 - p = v.begin();
 
@@ -125,17 +401,128 @@ vector<int\> v;로 가정합니다.
 
   마지막 원소의 다음을 가리키는 반복자입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<std::string> name;
+      name.push_back("썬콜");
+      name.push_back("아크");
+      name.push_back("히어로");
+      name.push_back("아델");
+      std::cout<<"name.front():"<<name.front()<<std::endl;
+      std::cout<<"name.back():"<<name.back()<<std::endl;
+  
+    /* std::vector<std::string>::iterator iter1;
+      for(iter1=name.begin();iter1!=name.end();iter1++){
+          std::cout<<*iter1<<"/";
+      }
+      
+      name.pop_back();
+      
+      for(iter1=name.begin();iter1!=name.end();iter1++){
+           std::cout<<*iter1<<"/";
+      }
+      
+      for(iter1=name.begin();iter1!=name.end();iter1++){
+           if(*iter1=="아크"){
+               name.erase(iter1);
+               break;
+           }
+      }
+      
+      
+  
+       for(iter1=name.begin();iter1!=name.end();iter1++){
+           std::cout<<*iter1<<"/";
+      }
+  */
+      for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+          std::cout<<*iter1<<"/";
+      std::cout<<std::endl;
+  
+      name.pop_back();
+  
+      for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+          std::cout<<*iter1<<"/";
+  
+      std::cout<<std::endl;
+  
+      for(auto iter1=name.begin(); iter1!=name.end(); iter1++){
+          if(*iter1=="아크"){
+              name.erase(iter1);
+              break;
+          }
+      }
+      for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
+          std::cout<<*iter1<<"/";    
+  }
+  //결과
+  name.front():썬콜
+  name.back():아델
+  썬콜/아크/히어로/아델/
+  썬콜/아크/히어로/
+  썬콜/히어로/
+  ```
+
 - p = v.rbegin();
 
   끝에서 첫번째 원소를 가리키는 반복자입니다.
+
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<std::string> name;
+      name.push_back("썬콜");
+      name.push_back("히어로");
+      auto riter=name.rbegin();
+      std::cout<<*riter<<std::endl;
+  }
+  //결과
+  히어로
+  ```
 
 - p = v.rend();
 
   끝에서 마지막 원소를 가리키는 반복자입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<std::string> name;
+      name.push_back("썬콜");
+      name.push_back("히어로");
+      auto riter=name.rbegin();
+      std::cout<<*riter<<std::endl;
+  }
+  //결과
+  ```
+
 - v.reserve(n);
 
   n개의 원소를 저장할 위치 예약합니다.(미리 동적 할당)
+
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<int> rvec;
+      rvec.reserve(100);
+      std::cout<<"size:"<<rvec.size()<<"capa:"<<rvec.capacity()<<std::endl;
+  }
+  //결과
+  size:0capa:100
+  ```
 
 - v.resize(n, x)
 
@@ -143,9 +530,51 @@ vector<int\> v;로 가정합니다.
 
   확장되는 공간을 x값으로 초기화합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<int> rvec;
+      rvec.reserve(100);
+      std::cout<<"size:"<<rvec.size()<<"capa:"<<" "<<rvec.capacity()<<std::endl;
+      rvec.resize(10,3);
+      std::cout<<"size:"<<rvec.size()<<"capa:"<<" "<<rvec.capacity()<<std::endl;
+  }
+  //결과
+  size:0 capa:100
+  size:10 capa:100
+  ```
+
 - v.swap(v2);
 
   v와 v2의 모든것(요소와 메모리)를 서로 바꿔줍니다.
+
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<int> rvec;
+      rvec.reserve(100);
+  
+      std::vector<int> swap_vec;
+      rvec.resize(10,3);
+      swap_vec.resize(10,3);
+      std::cout<<"size:"<<rvec.size()<<"capa:"<<rvec.capacity()<<std::endl;
+      std::cout<<"swap_vec_size:"<< swap_vec.size()<<" swap_vec_capa:"<<swap_vec.capacity()<<std::endl;
+      rvec.swap(swap_vec);
+      std::cout<<"size:"<<rvec.size()<<"capa:"<<rvec.capacity()<<std::endl;
+      std::cout<<"swap_vec_size:"<< swap_vec.size()<<" swap_vec_capa:"<<swap_vec.capacity()<<std::endl;
+  }
+  //결과
+  size:10capa:100
+  swap_vec_size:10 swap_vec_capa:10
+  size:10capa:10
+  swap_vec_size:10 swap_vec_capa:100
+  ```
 
 - q = v.insert(idx, x);
 
@@ -157,6 +586,34 @@ vector<int\> v;로 가정합니다.
 
   idx위치에 x값을 n개 삽입합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<string>
+  #include<vector>
+  
+  int main(){    
+      std::vector<int> inser_vec(5, 300);
+      for(auto iter1=inser_vec.begin(); iter1!=inser_vec.end(); iter1++)
+          std::cout<<*iter1<<"/";
+      std::cout<<std::endl;
+      auto q = inser_vec.insert(inser_vec.begin()+1, 1);
+      for(auto iter1=inser_vec.begin(); iter1!=inser_vec.end(); iter1++)
+          std::cout<<*iter1<<"/";
+      std::cout<<std::endl;
+      int array[] = {1, 2, 3};
+      auto c = inser_vec.insert(inser_vec.begin()+1, array, array + 3);
+      for(auto iter1=inser_vec.begin(); iter1!=inser_vec.end(); iter1++)
+          std::cout<<*iter1<<"/";
+      std::cout<<std::endl;
+      std::cout<<*c<<std::endl;
+  }
+  //결과
+  300/300/300/300/300/
+  300/1/300/300/300/300/
+  300/1/2/3/1/300/300/300/300/
+  1
+  ```
+
 - v.empty();
 
   vector가 비어있다면 true를 리턴해줍니다.
@@ -165,9 +622,10 @@ vector<int\> v;로 가정합니다.
 
   capacity하고 상관이 없습니다.
 
-- v.erase(idx) or v.erase(star_idx, end_idx)
+- p = v.erase(idx) or v.erase(star_idx, end_idx)
   원하는 index값의 요소를 지웁니다.
-
+p는 다음 원소를 가리킵니다.
+  
 - v.emplace(idx, x)
   원하는 위치에 요소를 삽입합니다.
 
@@ -279,126 +737,6 @@ Rvalue와 Lvalue를 확인하는 방법은 &를 붙여 에러가 난다면 Rvalu
 
 하지만 Rvalue는 Rvalue Reference와 같은 것은 아닙니다.
 
-
-
-## 예제
-
-```cpp
-#include<iostream>
-#include<string>
-#include<vector>
-
-int main(){
-    std::cout<<"생성"<<std::endl;
-    std::vector<int> v;
-    for(int i=0; i<10; i++){
-        v.push_back(i+1);
-        std::cout<<"v[i]:"<<v[i]<<", "<<"v.size():"<<v.size()<<", "<<"v.capacity():"<<v.capacity()<<std::endl;
-    }
-
-    std::cout<<"다양한 접근법"<<std::endl;
-    std::vector<int> v1;
-    v1.push_back(5);
-    v1.push_back(8);
-    v1.push_back(53);
-    v1.push_back(22);
-    for(int i=0; i<v1.size(); i++){
-        std::cout<<"at:"<<v1.at(i)<<" ";
-        std::cout<<"[]:"<<v1[i]<<" ";
-    }
-    std::cout<<std::endl;
-    std::vector<int>::iterator iter;
-    for(iter=v1.begin(); iter!=v1.end(); iter++){
-        std::cout<<*iter<<" ";
-    }
-    std::cout<<std::endl;
-
-    std::cout<<"삽입, 삭제"<<std::endl;
-    std::vector<std::string> name;
-    name.push_back("썬콜");
-    name.push_back("아크");
-    name.push_back("히어로");
-    name.push_back("아델");
-    std::cout<<"name.front():"<<name.front()<<std::endl;
-    std::cout<<"name.back():"<<name.back()<<std::endl;
-
-   /*std::vector<std::string>::iterator iter1;
-    for(iter1=name.begin();iter1!=name.end();iter1++){
-        std::cout<<*iter1<<"/";
-    }
-    
-    name.pop_back();
-    
-    for(iter1=name.begin();iter1!=name.end();iter1++){
-         std::cout<<*iter1<<"/";
-    }
-    
-    for(iter1=name.begin();iter1!=name.end();iter1++){
-         if(*iter1=="아크"){
-             name.erase(iter1);
-             break;
-         }
-    }
-    
-     for(iter1=name.begin();iter1!=name.end();iter1++){
-         std::cout<<*iter1<<"/";
-    }*/
-
-    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
-        std::cout<<*iter1<<"/";
-    std::cout<<std::endl;
-
-    name.pop_back();
-
-    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
-        std::cout<<*iter1<<"/";
-
-    std::cout<<std::endl;
-
-    for(auto iter1=name.begin(); iter1!=name.end(); iter1++){
-        if(*iter1=="아크"){
-            name.erase(iter1);
-            break;
-        }
-    }
-
-    for(auto iter1=name.begin(); iter1!=name.end(); iter1++)
-        std::cout<<*iter1<<"/";
-    std::cout<<std::endl;
-    std::cout<<name.empty()<<" "<<name.size()<<" "<<name.capacity()<<std::endl;
-    name.clear();
-    std::cout<<name.empty()<<" "<<name.size()<<" "<<name.capacity()<<std::endl;
-
-    return 0;
-}
-
-//결과
-생성
-v[i]:1, v.size():1, v.capacity():1
-v[i]:2, v.size():2, v.capacity():2
-v[i]:3, v.size():3, v.capacity():4
-v[i]:4, v.size():4, v.capacity():4
-v[i]:5, v.size():5, v.capacity():8
-v[i]:6, v.size():6, v.capacity():8
-v[i]:7, v.size():7, v.capacity():8
-v[i]:8, v.size():8, v.capacity():8
-v[i]:9, v.size():9, v.capacity():16
-v[i]:10, v.size():10, v.capacity():16
-다양한 접근법
-at:5 []:5 at:8 []:8 at:53 []:53 at:22 []:22 
-5 8 53 22 
-삽입, 삭제
-name.front():썬콜
-name.back():아델
-썬콜/아크/히어로/아델/
-썬콜/아크/히어로/
-썬콜/히어로/
-0 2 4
-1 0 4
-```
-
-
-
 ## auto
 
 C++11 이전에는 auto는 자동 저장소 클래스에 있는 변수, 지역변수를 선언하는 역할을 했었습니다.
@@ -462,17 +800,85 @@ vector의 생성자, 멤버함수와 90%이상 일치합니다.
 
   비어있는 dq를 생성합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq;
+  }
+  ```
+
+  
+
 - deque dq(n);
 
   0으로 초기화된 n개의 원소를 갖는 dq를 생성합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq(4);
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+  }
+  //결과
+  dq:0 dq:0 dq:0 dq:0  
+  ```
+
+  
 
 - deque dq(n, x);
 
   x로 초기화된 n개의 원소를 갖는 dq를 생성합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq(4, 5);
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+  }
+  //결과
+  dq:5 dq:5 dq:5 dq:5  
+  ```
+
+  
+
 - deque dq2(dq1);
 
   dq1를 복사하여 dq2를 생성합니다.
+  
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq(4, 5);
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+      std::deque<int> dq2(dq);
+      for(auto iter=dq2.begin(); iter!=dq2.end(); iter++)
+          std::cout<<"dq2:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+  }
+  //결과
+  dq:5 dq:5 dq:5 dq:5  
+  dq2:5 dq2:5 dq2:5 dq2:5  
+  ```
+  
+  
 
 vector와 마찬가지로 연산자를 사용하여 대소비교가 가능합니다.
 
@@ -484,9 +890,38 @@ deque<int\> dq 로 가정합니다.
 
   dq의 첫번째 원소 앞에 원소 x를 삽입합니다.
 
+  
+
 - dq.pop_front();
 
   dq의 첫번째 원소를 제거합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq(4, 5);
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+      dq.push_front(3);
+     for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+      dq.pop_front();
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+  }
+  //결과
+  dq:5 dq:5 dq:5 dq:5  
+  dq:3 dq:5 dq:5 dq:5 dq:5  
+  dq:5 dq:5 dq:5 dq:5  
+  ```
+
+  
 
 - dq.push_back(x);
 
@@ -496,11 +931,76 @@ deque<int\> dq 로 가정합니다.
 
   dq의 마지막 원소를 제거합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<deque>
+  #include<string>
+  
+  int main(){
+      std::deque<int> dq(4, 5);
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+      dq.push_back(3);
+     for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+      dq.pop_back();
+      for(auto iter=dq.begin(); iter!=dq.end(); iter++)
+          std::cout<<"dq:"<<*iter<<" ";
+      std::cout<<" "<<std::endl;
+  }
+  //결과
+  dq:5 dq:5 dq:5 dq:5  
+  dq:5 dq:5 dq:5 dq:5 dq:3  
+  dq:5 dq:5 dq:5 dq:5  
+  ```
+
+  
+
 - dq.capacity();
 
   존재하지 않습니다.
 
 나머지는 vector의 멤버함수와 동일합니다.
+
+
+
+## deque VS vector
+
+```cpp
+#include<iostream>
+#include<deque>
+#include<string>
+#include<vector>
+#include<time.h>
+
+long long count = 10000000; //64비트 정수 계열 형식 지정
+
+int main(){
+    std::deque<long long> dq;
+    std::vector<long long> vec;
+    clock_t dstart, dend, vstart, vend;
+    dstart = clock();
+    for(int i = 0; i<=count; i++)
+        dq.push_back(i);
+    dend = clock();
+    std::cout<<"deque 횟수:"<<count<<std::endl;
+    std::cout<<"deque time:"<<(double)(dend-dstart)/CLOCKS_PER_SEC<<"s"<<std::endl;
+    vstart = clock();
+    for(int i = 0; i<=count; i++)
+        vec.push_back(i);
+    vend = clock();
+    std::cout<<"vector 횟수:"<<count<<std::endl;
+    std::cout<<"vector time:"<<(double)(vend-vstart)/CLOCKS_PER_SEC<<"s"<<std::endl;
+
+}
+//결과
+deque 횟수:10000000
+deque time:0.223372s
+vector 횟수:10000000
+vector time:0.27621s
+```
 
 
 
@@ -538,17 +1038,77 @@ b = arr;  // 불가능
 
   크기 3, 초기화값 1,2,3
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  
+  int main(){
+      std::array<int, 3> arr1 = {1, 2, 3};
+      std::cout<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
+      
+  }
+  //결과
+  1 2 3
+  ```
+
+  
+
 - array<int, 3> arr1;
 
   크기3, 쓰레기값
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  
+  int main(){
+      std::array<int, 3> arr1;
+      std::cout<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
+      
+  }
+  //결과
+  0 -839177488 21919
+  ```
+
+  
 
 - array<int, 3> arr1 = {0};
 
   크기3, 모든 원소값 0
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  
+  int main(){
+      std::array<int, 3> arr1 = {0};
+      std::cout<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
+      
+  }
+  //결과
+  0 0 0
+  ```
+
+  
+
 - array<int,3> arr1 = {1};
 
   크기3, 첫번째 원소값만 1 나머지 원소값은 0
+  
+  ```cpp
+  #include<iostream>
+  #include<array>
+  
+  int main(){
+      std::array<int, 3> arr1 = {2};
+      std::cout<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
+      
+  }
+  //결과
+  2 0 0
+  ```
+  
+  
 
 ## array의 멤버함수
 
@@ -558,11 +1118,57 @@ b = arr;  // 불가능
 
   반복자 입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<*arr1.begin();
+      
+  }
+  //결과
+  99
+  ```
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.begin();
+      
+  }
+  //결과
+  0x7ffe4ac7331c
+  ```
+
+  
+
 - arr.end();
 
   배열의 맨 마지막 **다음**원소를 가리키는 반복자 입니다. 
 
   > 마지막 원소 + 1
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<*arr1.end();
+      
+  }
+  //결과
+  -1227280128
+  ```
+
+  
 
 - arr.rbegin();
 
@@ -572,6 +1178,22 @@ b = arr;  // 불가능
 
   반복자 입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<*arr1.rbegin();
+      
+  }
+  //결과
+  654
+  ```
+
+  
+
 - arr.rend();
 
   배열을 거꾸로했을때 마지막 다음원소를 가리킵니다.
@@ -579,6 +1201,22 @@ b = arr;  // 불가능
   반복자 입니다.
 
   > 즉 첫 번째 원소 - 1
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<*arr1.rend();
+      
+  }
+  //결과
+  -1520842960
+  ```
+
+  
 
 - arr.cbegin();, arr.cend();
 
@@ -592,17 +1230,89 @@ b = arr;  // 불가능
 
   맨 앞의 원소를 반환합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.front();	//반복자가 아니다.
+      
+  }
+  //결과
+  99
+  ```
+
+  
+
 - arr.back()
 
   맨 뒤의 원소를 반환합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.back();
+      
+  }
+  //결과
+  654
+  ```
+
+  
 
 - arr.data()
 
   배열의 포인터를 반환합니다.(배열의 첫번째 원소의 주소)
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.data()<<" "<<arr1.begin();
+      
+  }
+  //결과
+  0x7ffdce9bc5ec 0x7ffdce9bc5ec
+  ```
+
+  
+
 - arr.fill(val)
 
   배열의 인자를 val값으로 전부 바꿉니다.
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 10> arr1 = {99, 55, 654};
+      for(auto iter=arr1.begin(); iter!=arr1.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }
+      std::cout<<std::endl;
+      arr1.fill(999);
+      for(auto iter=arr1.begin(); iter!=arr1.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }
+      
+  }
+  //결과
+  99  55  654  0  0  0  0  0  0  0  
+  999  999  999  999  999  999  999  999  999  999  
+  ```
+
+  
 
 - arr.swap(arr2)
 
@@ -610,67 +1320,123 @@ b = arr;  // 불가능
 
   길이와 타입이 같아야  합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 10> arr1 = {99, 55, 654};
+      std::array<int, 10> arr2 = {8, 0, 6, 4, 1, 2};
+      for(auto iter=arr1.begin(); iter!=arr1.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }
+      std::cout<<std::endl;
+      arr1.swap(arr2);
+      for(auto iter=arr1.begin(); iter!=arr1.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }   
+  }
+  //결과
+  99  55  654  0  0  0  0  0  0  0  
+  8  0  6  4  1  2  0  0  0  0  
+  ```
+
+  
+
 - arr.at(n)
 
   n번째 인자를 반환합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.at(2)<<std::endl;
+      std::cout<<arr1.at(10)<<std::endl;
+  }
+  //결과
+  654
+  terminate called after throwing an instance of 'std::out_of_range'
+    what():  array::at: __n (which is 10) >= _Nm (which is 3)
+  ```
+
+  
 
 - arr[n]
 
   n번째 인자를 반환합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1[2]<<std::endl;
+      std::cout<<arr1[10]<<std::endl;
+  }
+  //결과
+  654
+  -1
+  ```
+
+  
+
 - arr.empty()
 
   비어있는지 확인합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::array<int, 0> arr2;
+      std::cout<<arr1.empty()<<std::endl;
+      std::cout<<arr2.empty()<<std::endl;
+  }
+  //결과
+  0
+  1
+  ```
+
+  
+
 - arr.max_size()
 
   배열의 최대 사이즈를 반환합니다. (size와 같음)
+
+  
 
 - arr.size()
 
   배열의 사이즈를 반환합니다. (max_size와 같음)
   
   > 배열은 초기화하면서 채워지기때문에 배열크기와 같은 값 반환
-
-## 예제
-
-```cpp
-#include<iostream>
-#include<array>
-
-int main(){
-    std::array<int, 3> arr1 = {1,5,6};
-    std::array<int, 5> arr2 = {0};
-    std::array<int, 8> arr3;
-    std::cout<<"size "<<"max_size "<<std::endl;
-    std::cout<<arr1.size()<<" "<<arr1.max_size()<<std::endl;
-    std::cout<<arr2.size()<<" "<<arr2.max_size()<<std::endl;
-    std::cout<<arr3.size()<<" "<<arr3.max_size()<<std::endl;
-
-    std::cout<<"front & back"<<std::endl;
-    std::cout<<arr1.front()<<" "<<arr1.back()<<std::endl;
-
-    std::cout<<"fill & swap"<<std::endl;
-    std::cout<<"default"<<" "<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
-    arr1.fill(90);
-    std::cout<<"fill"<<" "<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
-    std::array<int, 3> swap1 = {80, 100, 800};
-    arr1.swap(swap1);
-    std::cout<<"swap"<<" "<<arr1[0]<<" "<<arr1[1]<<" "<<arr1[2]<<std::endl;
-}
-
-//결과
-size max_size 
-3 3
-5 5
-8 8
-front & back
-1 6
-fill & swap
-default 1 5 6
-fill 90 90 90
-swap 80 100 800
-```
+  
+  ```cpp
+  #include<iostream>
+  #include<array>
+  #include<vector>
+  
+  int main(){
+      std::array<int, 3> arr1 = {99, 55, 654};
+      std::cout<<arr1.size()<<std::endl;
+      std::cout<<arr1.max_size()<<std::endl;
+  }
+  //결과
+  3
+  3
+  ```
+  
+  
 
 
 
@@ -711,13 +1477,67 @@ ex)list<int> lt1;
 
   0으로 초기화된 n개의 원소를 생성합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  int main(){
+  	std::list<int> lt(5);
+  	for(auto iter=lt.begin(); iter!=lt.end(); iter++){
+      	std::cout<<*iter<<"  ";
+      }   
+  }
+  //결과
+  0  0  0  0  0  
+  ```
+
+  
+
 - list lt(n,x)
 
   x값으로 초기화된 n개의 원소를 생성합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  int main(){
+  	std::list<int> lt(5, 8);
+  	for(auto iter=lt.begin(); iter!=lt.end(); iter++){
+      	std::cout<<*iter<<"  ";
+      }   
+  }
+  //결과
+  8  8  8  8  8  
+  ```
+
+  
+
 - list lt1(lt)
 
   lt를 lt1로 복사하여 생성합니다.
+  
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  int main(){
+      std::list<int> lt(5, 8);
+      std::list<int> lt2(lt);
+      for(auto iter=lt.begin(); iter!=lt.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }
+      std::cout<<std::endl;
+      for(auto iter=lt2.begin(); iter!=lt2.end(); iter++){
+          std::cout<<*iter<<"  ";
+      }
+  }
+  //결과
+  8  8  8  8  8  
+  8  8  8  8  8  
+  ```
+  
+  
 
 list도 마찬가지로 크기비교 연산자를 사용할 수 있습니다.
 
@@ -735,8 +1555,8 @@ list<int\> lt 로 가정합니다.
   - lt.rbegin()
   - lt.rend()
   - lt.push_back(x)
-
-  뒤쪽으로 x값을 삽입합니다.
+  - lt.size()
+  - lt2.swap(lt1)
 
 - lt.push_front(x)
 
@@ -762,8 +1582,6 @@ list<int\> lt 로 가정합니다.
 
   삭제한 다음 원소를 가르키는 iterator를 반환합니다.
 
-- lt.size()
-
 - lt.remove(x)
 
   x와 같은 원소를 모두 삭제합니다.
@@ -772,9 +1590,78 @@ list<int\> lt 로 가정합니다.
 
   단항 조건자 predicate에 해당하는 원소를 모두 제거합니다.
 
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  bool pre(int num){
+      return num==100;
+  }
+  int main(){
+      std::list<int> lt(5, 8);
+      lt.push_back(100);
+      lt.push_back(200);
+      lt.push_back(300);
+      lt.push_back(400);
+      lt.push_front(500);
+      lt.push_front(400);
+      lt.push_front(100);
+      lt.push_front(900);
+      std::cout<<"ori"<<std::endl;
+          for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      lt.remove_if(pre);
+      std::cout<<"remove"<<std::endl;
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  
+  }
+  //결과
+  ori
+  900 100 400 500 8 8 8 8 8 100 200 300 400 
+  remove
+  900 400 500 8 8 8 8 8 200 300 400 
+  ```
+
+  
+
+  
+
 - lt.reverse()
 
   원소들의 순서를 뒤집습니다.
+
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  
+  int main(){
+      std::list<int> lt;
+      lt.push_back(1);
+      lt.push_back(5);
+      lt.push_back(8);
+      lt.push_back(11);
+      lt.push_back(90);
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      lt.reverse();
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  
+  }
+  //결과
+  1 5 8 11 90 
+  90 11 8 5 1 
+  ```
+
+  
 
 - lt.sort()
 
@@ -782,7 +1669,34 @@ list<int\> lt 로 가정합니다.
 
   파라미터값으로 이항 조건자가 올 수 있으며, 이때는 조건자 기준으로 정렬합니다.
 
-- lt2.swap(lt1)
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  
+  int main(){
+      std::list<int> lt;
+      lt.push_back(1);
+      lt.push_back(87);
+      lt.push_back(100);
+      lt.push_back(0);
+      lt.push_back(90);
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      lt.sort();
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  
+  }
+  //결과
+  1 87 100 0 90 
+  0 1 87 90 100 
+  ```
+
+  
 
 - lt1.splice(iter2, lt1)
 
@@ -792,127 +1706,142 @@ list<int\> lt 로 가정합니다.
 
   lt2.splice(iter2, lt1, iter1_1, iter1_2) : lt2에 iter2가 가리키는 곳에 lt1의 iter1_1~iter1_2까지의 원소를 붙입니다. 이때 범위는 [liter1_1, iter1_2)입니다.
 
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  
+  int main(){
+      std::list<std::string> lt;
+      std::list<std::string> lt2;
+      lt.push_back("q");
+      lt.push_back("w");
+      lt.push_back("e");
+      lt.push_back("r");
+      lt.push_back("t");
+      lt2.push_back("Q");
+      lt2.push_back("W");
+      lt2.push_back("E");
+      lt2.push_back("R");
+      lt2.push_back("T");
+      std::cout<<"lt"<<std::endl;
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      std::cout<<"lt2"<<std::endl;
+      lt.sort();
+      for(auto iter=lt2.begin(); iter!=lt2.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      auto siter = lt2.begin();
+      siter++;
+      lt2.splice(siter, lt);
+      for(auto iter=lt2.begin(); iter!=lt2.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  
+  }
+  //결과
+  lt
+  q w e r t 
+  lt2
+  Q W E R T 
+      
+  Q e q r t w W E R T 
+  ```
+
+  
+
 - lt.unique()
 
   인접한(양옆) 원소가 같으면 하나를 남기고 모두 삭제합니다.
+
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  
+  int main(){
+      std::list<std::string> lt;
+  
+      lt.push_back("q");
+      lt.push_back("w");
+      lt.push_back("r");
+      lt.push_back("r");
+      lt.push_back("t");
+      lt.push_back("t");
+      lt.push_back("t");
+      lt.push_back("q");
+      std::cout<<"lt"<<std::endl;
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      lt.unique();
+      std::cout<<"unique"<<std::endl;
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  }
+  //결과
+  lt
+  q w r r t t t q 
+  unique
+  ```
+
+  
 
 - lt2.merge(lt1)
 
   lt1을 lt2내부로 합엽하여 오름차순으로 정렬합니다.
 
   파라미터로 이항 조건자가 올 수 있으며 이때 조건자를 기준으로 정렬합니다.
-
-## 예제
-
-```cpp
-#include<iostream>
-#include<list>
-#include<string>
-bool pre(int num){
-    return num==100;
-}
-int main(){
-    std::list<int> lt;
-    lt.push_back(10);
-    lt.push_back(40);
-    lt.push_back(80);
-    lt.push_back(90);
-    lt.push_back(100);
-    lt.push_back(120);
-    lt.push_back(150);
-    lt.push_back(100);
-    std::list<int>::iterator iter;
-    std::cout<<"original: "<<std::endl;
-    for(iter=lt.begin();iter!=lt.end();iter++){
-        std::cout<<*iter<<" ";
-    }
-    std::cout<<std::endl;
-
-    std::cout<<"remove_if"<<std::endl;
-    lt.remove_if(pre);
-    for(iter=lt.begin();iter!=lt.end();iter++){
-        std::cout<<*iter<<" ";
-    }
-    std::cout<<std::endl;
-    std::cout<<std::endl;
-
-
-    std::list<std::string> lt2;
-    lt2.push_back("l");
-    lt2.push_back("h");
-    lt2.push_back("r");
-    lt2.push_back("y");
-    lt2.push_back("z");
-    lt2.push_back("o");
-    lt2.push_back("o");
-    lt2.push_back("o");
-    lt2.push_back("q");
-    std::list<std::string>::iterator iter2;
-    std::cout<<"original string"<<std::endl;
-    for(iter2=lt2.begin();iter2!=lt2.end();iter2++){
-        std::cout<<*iter2<<" ";
-    }
-    std::cout<<std::endl;
-    lt2.sort();
-    std::cout<<"sort"<<std::endl;
-    for(iter2=lt2.begin();iter2!=lt2.end();iter2++){
-        std::cout<<*iter2<<" ";
-    }
-    std::cout<<std::endl;
-    std::cout<<"unique"<<std::endl;
-    lt2.unique();
-    for(iter2=lt2.begin();iter2!=lt2.end();iter2++){
-        std::cout<<*iter2<<" ";
-    }
-    std::cout<<std::endl;
-    std::cout<<std::endl;
-
-
-
-    std::list<std::string> st1;
-    std::list<std::string> st2;
-    st1.push_back("a");
-    st1.push_back("b");
-    st1.push_back("c");
-    st1.push_back("d");
-    st2.push_back("Q");
-    st2.push_back("W");
-    st2.push_back("E");
-    std::list<std::string>::iterator siter;
-    std::cout<<"original_st1: ";
-    for(siter=st1.begin();siter!=st1.end();siter++){
-        std::cout<<*siter<<" ";
-    }
-    std::cout<<"original_st2: ";
-    for(siter=st2.begin();siter!=st2.end();siter++){
-        std::cout<<*siter<<" ";
-    }
-    std::cout<<std::endl;
-
-    siter = st2.begin();
-    siter++;
-    st2.splice(siter, st1);
-    std::cout<<"splice: ";
-    for(siter=st2.begin();siter!=st2.end();siter++){
-        std::cout<<*siter<<" ";
-    }
-    
-}
-
-//결과
-original: 
-10 40 80 90 100 120 150 100 
-remove_if
-10 40 80 90 120 150 
-
-original string
-l h r y z o o o q 
-sort
-h l o o o q r y z 
-unique
-h l o q r y z 
-
-original_st1: a b c d original_st2: Q W E 
-splice: Q a b c d W E 
-```
+  
+  ```cpp
+  #include<iostream>
+  #include<list>
+  #include<string>
+  
+  int main(){
+      std::list<std::string> lt;
+      std::list<std::string> lt2;
+      lt.push_back("q");
+      lt.push_back("w");
+      lt.push_back("e");
+      lt.push_back("r");
+      lt.push_back("t");
+      lt2.push_back("Q");
+      lt2.push_back("W");
+      lt2.push_back("E");
+      lt2.push_back("R");
+      lt2.push_back("T");
+      std::cout<<"lt"<<std::endl;
+      for(auto iter=lt.begin(); iter!=lt.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      std::cout<<std::endl;
+      std::cout<<"lt2"<<std::endl;
+      lt.sort();
+      for(auto iter=lt2.begin(); iter!=lt2.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+      lt2.merge(lt);
+      std::cout<<std::endl;
+      std::cout<<"merge"<<std::endl;
+      for(auto iter=lt2.begin(); iter!=lt2.end();iter++){
+          std::cout<<*iter<<" ";
+      }
+  }
+  //결과
+  lt
+  q w e r t 
+  lt2
+  Q W E R T 
+  merge
+  Q W E R T e q r t w 
+  ```
+  
+  
 
