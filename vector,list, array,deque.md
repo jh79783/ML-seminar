@@ -53,8 +53,8 @@ ex) vector<int> v;
   int main(){
       std::cout<<"크기 n개 생성"<<std::endl;
       std::vector<int> v(10);
-      for(int i=0; i<10; i++){
-         std::cout<<"v:"<<v[i]<<std::endl;
+      for(auto iter=v.begin(); iter!=v.end(); iter++){
+         std::cout<<"v:"<<*iter<<std::endl;
       }
   }
   //결과
@@ -84,8 +84,8 @@ ex) vector<int> v;
   int main(){
       std::cout<<"요소 x, 크기 n개 생성"<<std::endl;
       std::vector<int> v1(5, 9);
-      for(int i=0; i<5; i++){
-         std::cout<<"v1:"<<v1[i]<<std::endl;
+      for(auto iter=v1.begin(); iter!=v1.end(); iter++){
+         std::cout<<"v1:"<<*iter<<std::endl;
       }
   }
   //결과
@@ -109,23 +109,25 @@ ex) vector<int> v;
   
   int main(){
       std::cout<<"복사"<<std::endl;
+      std::vector<int> v1(5, 9);
       std::vector<int> v2(v1);
-      for(int i=0; i<5; i++){
-         std::cout<<"v1:"<<v1[i]<<std::endl;
-         std::cout<<"v2:"<<v2[i]<<std::endl;
-      }
+      for(auto iter=v1.begin(); iter!=v1.end(); iter++)
+         std::cout<<"v1:"<<*iter<<std::endl;
+      
+      for(auto iter=v2.begin(); iter!=v2.end(); iter++)
+          std::cout<<"v2:"<<*iter<<std::endl;
   }
   //결과
   복사
   v1:9
-  v2:9
+  v1:9
+  v1:9
+  v1:9
   v1:9
   v2:9
-  v1:9
   v2:9
-  v1:9
   v2:9
-  v1:9
+  v2:9
   v2:9
   ```
   
@@ -178,14 +180,27 @@ vector<int\> v;로 가정합니다.
   
   int main(){
       std::cout<<"v.assign(n, x)"<<std::endl;
-      std::vector<int> v_assign;
+      std::vector<int> v_assign(10, 10);
+      for(auto iter=v_assign.begin(); iter!=v_assign.end(); iter++){
+          std::cout<<"v_assign 선언:"<<*iter<<std::endl;
+      }   
       v_assign.assign(3, 3);
-      for(int i=0; i<3; i++){
-         std::cout<<"v_assign:"<<v_assign[i]<<std::endl;
+      for(auto iter=v_assign.begin(); iter!=v_assign.end(); iter++){
+         std::cout<<"v_assign:"<<*iter<<std::endl;
       }   
   }
   //결과
   v.assign(n, x)
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
+  v_assign 선언:10
   v_assign:3
   v_assign:3
   v_assign:3
@@ -258,12 +273,17 @@ vector<int\> v;로 가정합니다.
   #include<vector>
   
   int main(){
-      std::cout<<"v.at(idx)"<<std::endl;
-      std::vector<int> v_at(3,3);
-      std::cout<<"v_front:"<<v_at.front()<<std::endl; 
+      std::vector<int> v;
+      v.push_back(1);
+      v.push_back(5);
+      v.push_back(10);
+      int p = v.front();
+      std::cout<<"v_front:"<<v.front()<<std::endl; 
+      std::cout<<"p:"<<p<<std::endl; 
   }
   //결과
-  v_front:3
+  v_front:1
+  p:1
   ```
 
 - v.back();
@@ -275,12 +295,17 @@ vector<int\> v;로 가정합니다.
   #include<vector>
   
   int main(){
-      std::cout<<"v.at(idx)"<<std::endl;
-      std::vector<int> v_at(3,3);
-      std::cout<<"v_back:"<<v_at.back()<<std::endl; 
+      std::vector<int> v;
+      v.push_back(1);
+      v.push_back(5);
+      v.push_back(10);
+      int p = v.back();
+      std::cout<<"v_front:"<<v.back()<<std::endl; 
+      std::cout<<"p:"<<p<<std::endl; 
   }
   //결과
-  v_back:3
+  v_front:10
+  p:10
   ```
 
 - v.size();
@@ -354,6 +379,12 @@ vector<int\> v;로 가정합니다.
 
   마지막 원소 뒤에 x값을 추가합니다.
 
+  
+  
+- v.pop_back();
+
+  마지막 원소를 제거합니다.
+
   ```cpp
   #include<iostream>
   #include<vector>
@@ -364,31 +395,27 @@ vector<int\> v;로 가정합니다.
       v_push.push_back(50);
       v_push.push_back(49);
       v_push.push_back(90);
-      for(int i=0; i<v_push.size(); i++){
-      std::cout<<"push:"<<v_push[i]<<" ";
+      v_push.push_back(100);
+      for(auto iter=v_push.begin(); iter!=v_push.end(); iter++){
+      std::cout<<"push:"<<*iter<<", size:"<<v_push.size()<<", capa:"<<v_push.capacity()<<std::endl;
+      }
+      std::cout<<std::endl;
+      v_push.pop_back();
+      for(auto iter=v_push.begin(); iter!=v_push.end(); iter++){
+      std::cout<<"pop:"<<*iter<<", size:"<<v_push.size()<<", capa:"<<v_push.capacity()<<std::endl;
       }
   }
   //결과
-  push:5 push:50 push:49 push:90 
-  ```
-
-- v.pop_back();
-
-  마지막 원소를 제거합니다.
-
-  ```cpp
-  #include<iostream>
-  #include<vector>
+  push:5, size:5, capa:8
+  push:50, size:5, capa:8
+  push:49, size:5, capa:8
+  push:90, size:5, capa:8
+  push:100, size:5, capa:8
   
-  int main(){    
-     	v_push.pop_back();
-      for(int i=0; i<v_push.size(); i++){
-      std::cout<<"pop:"<<v_push[i]<<" ";
-      }"push:"<<v_push[i]<<" ";
-      }
-  }
-  //결과
-  pop:5 pop:50 pop:49 
+  pop:5, size:4, capa:8
+  pop:50, size:4, capa:8
+  pop:49, size:4, capa:8
+  pop:90, size:4, capa:8
   ```
 
 - p = v.begin();
@@ -526,7 +553,7 @@ vector<int\> v;로 가정합니다.
 
 - v.resize(n, x)
 
-  크기를 n으로 변경합니다(10 -> 5로 줄이면 짤리는가).
+  크기를 n으로 변경합니다.
 
   확장되는 공간을 x값으로 초기화합니다.
 
