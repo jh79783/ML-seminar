@@ -2,9 +2,9 @@
 
 다층 퍼셉트론은 복수의 퍼셉트론 계층을 둔 신경망 구조를 말한다.
 
-![](C:\workspace\ML\image\SLP.png)
+![](https://github.com/jh79783/ML-seminar/blob/master/image/SLP.png?raw=true)
 
-![](C:\workspace\ML\image\MLP2.jpeg)
+![](https://github.com/jh79783/ML-seminar/blob/master/image/MLP2.jpeg?raw=true)
 
 위의 두 사진은 각각 단층 퍼셉트론, 다층 퍼셉트론의 한 예시이다.
 전 장에서 공부했던 단층 퍼셉트론은 첫번째 사진의 은닉층이 없이 입력계층과 출력계층만 존재하는 것을 확인할 수 있다.
@@ -23,7 +23,7 @@
 전에 배운 시그모이드와 소프트맥스 함수는 비선형 활성화 함수이지만 이들은 퍼셉트론 내의 구성 요소로 간주하지 않았다. 왜냐하면 출력 계층에서 출력의 유형(이진분류, 선택분류)에 따라 비선형 함수를 이용하는 방법이 달라지고, 이 때문에 비선형 함수를 퍼셉트론 안에 두는 것이 곤란하기 때문이다.
 아래의 사진은 소프트맥스가 적용되는 위치를 보여준다. 사진에 나타난 소프트맥스는 여러개의 출력을 묶어 함께 처리하기 때문에 독립된 구조에서는 사용이 불가능하다. 
 
-![](C:\workspace\ML\image\소프트맥스 작동.png)
+![](https://github.com/jh79783/ML-seminar/blob/master/image/%EC%86%8C%ED%94%84%ED%8A%B8%EB%A7%A5%EC%8A%A4%20%EC%9E%91%EB%8F%99.png?raw=true)
 
 출력 계층에서는 비선형 활성화 함수를 사용하지 않으며, 지난 시간에 사용한 시그모이드와 소프트맥스 함수는 후처리 과정에서 사용한 것일뿐, 출력 계층에서는 사용하지 않았다. 따라서 비선형 활성화 함수는 각 은닉계층의 사이에 비선형 활성화 함수가 놓이게 된다.
 
@@ -52,7 +52,7 @@ ReLU\;definition\\
 x>0:y=x\\
 x<=0:y=0
 $$
-![](C:\workspace\ML\image\relu.jpg)
+![](https://github.com/jh79783/ML-seminar/blob/master/image/relu.jpg?raw=true)
 
 ReLU함수의 한 가지 문제는 x=0에서 미분이 불가능 하다는 점이다.
 따라서 이때, 대부분 x=0일때 기울기를 0으로 설정해 준다.
@@ -82,7 +82,7 @@ y=w_1x_1+w_2x_2+b
 $$
 위의 식에서 $x_2=0$인 경우를 생각해보면, $x_1=0$이면 $y=0$이 되고, $x_1=1$이면 $y=1$이 되어야 한다. 하지만 파라미터는 각각의 퍼셉트론에만 영향을 끼칠뿐, 다른 퍼셉트론에 영향을 끼칠 수 없다. 따라서 $x_2$값에 따라 $x_1$과$y$값이 변할 수가 없다.
 이를 해결하기 위해 비선형 활성화 함수를 넣은 다층 퍼셉트론을 만들어 XOR문제를 해결할 수 있게 되었다.
-![](C:\workspace\ML\image\xor.jpg)
+![](https://github.com/jh79783/ML-seminar/blob/master/image/xor.jpg?raw=true)
 
 위의 신경망을 예로 들자.
 이 신경망은 H1, H2 두개의 퍼셉트론으로 구성되며, 은닉계층이 1개인 신경망이다.
