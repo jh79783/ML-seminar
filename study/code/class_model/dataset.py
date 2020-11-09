@@ -7,6 +7,8 @@ import os
 class DataSet(DatasetBase):
     def __init__(self, name, mode):
         super(DataSet, self).__init__(name, mode)
+        # self.image_shape = None
+        # self.target_names = None
 
         if name == 'abalone':
             rows, _ = mu.load_csv('../data/abalone.csv')
@@ -32,15 +34,6 @@ class DataSet(DatasetBase):
             self.dataset_shuffle_data(data[:, :-1], data[:, -1:], 0.8)
             self.target_names = ['별', '펄서']
 
-            def visuallize(self, xs, estimates, answers):
-                for n in range(len(xs)):
-                    x, est, ans = xs[n], estimates[n], answers[n]
-                    xstr = mu.vector_to_str(x, '%5.1f', 3)
-                    estr = self.target_names[int(round(est[0]))]
-                    astr = self.target_names[int(round(ans[0]))]
-                    rstr = 'O'
-                    if estr != astr: rstr = 'X'
-                    print('{} => 추정 {}(확률 {:4.2f}) : 정답 {} => {}'.format(xstr, estr, est[0], astr, rstr))
 
         elif name == 'steel':
             rows, headers = mu.load_csv('../data/faults.csv')
@@ -58,8 +51,6 @@ class DataSet(DatasetBase):
             self.dataset_shuffle_data(data[:, :-1], mu.onehot(data[:, -1], 2), 0.8)
             self.target_names = ['별', '펄서']
 
-            def visualize(self, xs, estimates, answers):
-                mu.show_select_results(estimates, answers, self.target_names)
 
         elif name == 'flower':
             resolution = [100,100]
@@ -85,9 +76,6 @@ class DataSet(DatasetBase):
             ys = mu.onehot(idxs, len(self.target_names))
             self.dataset_shuffle_data(xs, ys, 0.8)
 
-            def visualize(self, xs, estimates, answers):
-                mu.draw_images_horz(xs, self.image_shape)
-                mu.show_select_results(estimates, answers, self.target_names)
 
     def dataset_get_train_data(self, batch_size, nth):
         from_idx = nth * batch_size
@@ -143,6 +131,30 @@ class DataSet(DatasetBase):
         self.output_shape = ys[0].shape  # 5
         return indices[tr_from:tr_to], indices[va_from:va_to], indices[te_from:te_to]
 
+    def visualize(self, xs, estimates, answers):
+        if self.name == "abalone":
+            for n in range(len(xs)):
+                x, est, ans = xs[n], estimates[n], answers[n]
+                xstr = mu.vector_to_str(x, '%4.2f')
+                print('{} => 추정 {:4.1f} : 정답 {:4.1f}'.format(xstr, est[0], ans[0]))
+
+        elif self.name == "pulsar":
+            for n in range(len(xs)):
+                x, est, ans = xs[n], estimates[n], answers[n]
+                xstr = mu.vector_to_str(x, '%5.1f', 3)
+                estr = self.target_names[int(round(est[0]))]
+                astr = self.target_names[int(round(ans[0]))]
+                rstr = 'O'
+                if estr != astr: rstr = 'X'
+                print('{} => 추정 {}(확률 {:4.2f}) : 정답 {} => {}'.format(xstr, estr, est[0], astr, rstr))
+        elif self.name == 'steel':
+            mu.show_select_results(estimates, answers, self.target_names)
+        elif self.name == "pulsarselect":
+            mu.show_select_results(estimates, answers, self.target_names)
+        elif self.name == "flower":
+            mu.draw_images_horz(xs, self.image_shape)
+            mu.show_select_results(estimates, answers, self.target_names)
+
     def dataset_forward_postproc(self, output, y):
         pass
 
@@ -155,6 +167,6 @@ class DataSet(DatasetBase):
     def dataset_get_estimate(self, output):
         pass
 
-    def visualize(self, xs, estimates, answers):
-        mu.draw_images_horz(xs, self.image_shape)
-        mu.show_select_results(estimates, answers, self.target_names)
+    # def visualize(self, xs, estimates, answers):
+    #     mu.draw_images_horz(xs, self.image_shape)
+    #     mu.show_select_results(estimates, answers, self.target_names)

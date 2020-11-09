@@ -13,7 +13,7 @@ class ModelBase:  # 기반 클래스 선언 object 클래스를 상속받는다.
         self.train(epoch_count, batch_size, learning_rate, report)  # 훈련 -> mlp_model_train
         self.test()  # 테스트 -> mlp_model_test
         if show_cnt > 0:
-            self.visualize(show_cnt)
+            self.load_visualize(show_cnt)
 
     def init_parameters(self, hconfigs):
         pass
@@ -30,7 +30,7 @@ class ModelBase:  # 기반 클래스 선언 object 클래스를 상속받는다.
     def test(self):
         pass
 
-    def visualize(self, num):
+    def load_visualize(self, num):
         pass
 
     def train_step(self,x ,y):

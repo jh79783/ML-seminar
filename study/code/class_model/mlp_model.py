@@ -74,11 +74,12 @@ class MlpModel(ModelBase):
         time2 = int(time.time())
         self.dataset.dataset_test_prt_result(self.name, acc, time2 - time1)
 
-    def visualize(self, num):
+    def load_visualize(self, num):
         print('Model {} Visualization'.format(self.name))
         deX, deY = self.dataset.dataset_get_validate_data(num)
         est = self.get_estimate(deX)
         self.dataset.visualize(deX, est, deY)
+        # self.dataset.visualize()
 
     def train_step(self, x, y):
         self.is_training = True  # train 플래그 활성화
